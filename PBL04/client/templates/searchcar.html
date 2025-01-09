@@ -1,0 +1,79 @@
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <h1>{{appType}} | Car Project</h1>
+                <h3 class="text-center">
+                  Demo:
+                  <a href="{{url_for('createcar')}}" style="color: white;">Create</a>
+                  /
+                  <a href="{{url_for('readcar')}}" style="color: white;">Read</a>
+                  /
+                  <a href="{{url_for('updatecar')}}" style="color: white;">Update</a>
+                  /
+                  <a href="{{url_for('deletecar')}}" style="color: white;">Delete</a>
+                  /
+                  <a href="{{url_for('searchcar')}}" style="color: white;">Search</a>
+                </h3>
+
+              </div>
+            </div>
+          <h4 class="mb-0">Search Car Data</h4>
+        </div>
+        <div class="card-body">
+          <form action="{{ url_for('searchcarinput') }}" method="POST">
+            <div class="form-group">
+              <label for="searchTerm" class="font-weight-bold">Car Name</label>
+              <input type="text" class="form-control" id="searchTerm" name="searchTerm" placeholder="Enter car name">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Search</button>
+          </form>
+        </div>
+      </div>
+      <br>
+      {% if results %}
+      <div class="card shadow mt-4">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Search Results</h4>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>Car ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for car in results %}
+              <tr>
+                <td>{{ car['id'] }}</td>
+                <td>{{ car['carname'] }}</td>
+                <td>{{ car['carbrand'] }}</td>
+                <td>{{ car['carmodel'] }}</td>
+                <td>{{ car['carprice'] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% else %}
+      <div class="alert alert-warning mt-4 text-center" role="alert">
+        No results found for the search term.
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
